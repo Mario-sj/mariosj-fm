@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario sj FM</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlazar tu hoja de estilos CSS -->
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1 data-translate="header-title">Bienvenidos a Mario sj FM</h1>
+        <h2 data-translate="header-subtitle">Una radio con música de verdad.</h2>
+        <nav>
+            <ul>
+                <li><a href="#inicio" data-translate="nav-home">Inicio</a></li>
+                <li><a href="#programacion" data-translate="nav-programming">Programación</a></li>
+                <li><a href="#actualizaciones" data-translate="nav-updates">Actualizaciones</a></li>
+                <li><a href="#sobre-nosotros" data-translate="nav-about">Sobre Nosotros</a></li>
+                <li><a href="#contacto" data-translate="nav-contact">Contacto</a></li>
+            </ul>
+        </nav>
+        <div id="language-selector">
+            <img src="images/es_flag.png" alt="Español" id="es" class="lang-flag">
+            <img src="images/en_flag.png" alt="English" id="en" class="lang-flag">
+            <img src="images/se_flag.png" alt="Svenska" id="se" class="lang-flag">
+            <img src="images/gr_flag.png" alt="Ελληνικά" id="gr" class="lang-flag">
+            <img src="images/sp_flag.png" alt="Srpski" id="sp" class="lang-flag">
+        </div>
+    </header>
+    
+    <!-- Sección de Reproductor -->
+    <section id="inicio">
+        <h2 data-translate="live-listening">Escucha en Vivo</h2>
+        <div id="player">
+            <div id="song-info" data-translate="song-info">Cargando...</div>
+            <button id="play-pause-btn">▶️</button>
+            <div id="volume-control">
+                <label for="volume-slider" data-translate="volume-label">Volumen:</label>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+            </div>
+        </div>
+    </section>    
+    
+    <!-- Sección de Programación -->
+    <section id="programacion">
+        <h2 data-translate="programming-header">Programación</h2>
+        <h3 data-translate="programming-description">Nuestra programación es completamente aleatoria.</h3>
+        <!-- Añade aquí tu programación -->
+    </section>
+    
+    <!-- Sección de actualizaciones -->
+    <section id="actualizaciones">
+        <h2 data-translate="updates-header">Actualizaciones</h2>
+        <h4><span style="font-weight: bold;" data-translate="updates-date">30-8-2024:</span> <span data-translate="updates-description">Se han añadido a la radio las canciones "Swing Doors" y "Swing Kings" del álbum "Roads to War".</span></h4>
+        <!-- Añade aquí información sobre tu radio -->
+    </section>
+    
+    <!-- Sección Sobre Nosotros -->
+    <section id="sobre-nosotros">
+        <h2 data-translate="about-header">Sobre Nosotros</h2>
+        <h3 data-translate="about-intro">Somos una radio con la intención de dar una música de nuestro agrado.</h3>
+        <h4 data-translate="about-description">Nuestro objetivo es permitir que la gente descubra estas canciones que aquí se muestran, pero que, por cuestiones de la sociedad actual y su cambio en el gusto musical, comúnmente son ocultadas por las que actualmente brillan.</h4>
+        <!-- Añade aquí información sobre tu radio -->
+    </section>
+    
+    <!-- Sección de Contacto -->
+    <form id="contact-form">
+        <label for="nombre" data-translate="contact-name">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        
+        <label for="email" data-translate="contact-email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="mensaje" data-translate="contact-message">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" required></textarea>
+        
+        <button type="submit" data-translate="contact-submit">Enviar</button>
+    </form>
+    
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('mensaje').value
+            };
+            
+            try {
+                const response = await fetch('/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    alert('Correo enviado correctamente.');
+                } else {
+                    alert('Error al enviar el correo.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al enviar el correo.');
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p data-translate="footer-text">© 2024 Mario sj FM. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script para la Información de la Canción y el Control del Reproductor -->
+    <script src="https://cdn.jsdelivr.net/npm/howler"></script>
+    <script src="script.js"></script> <!-- Enlazar tu archivo JavaScript -->
+    <script>
+            // Elemento donde se mostrará el título de la canción
+            const songInfo = document.getElementById('song-info');
+
+        // URL del flujo SSE para obtener la información de la canción actual
+        const sseUrl = "https://api.zeno.fm/mounts/metadata/subscribe/l13zjhvjpvluv";
+
+        // Crear una nueva conexión EventSource
+        const eventSource = new EventSource(sseUrl);
+
+        // Manejar los eventos de mensaje recibidos
+        eventSource.onmessage = function(event) {
+            try {
+                // Parsear el JSON recibido
+                const data = JSON.parse(event.data);
+                // Verificar y mostrar el título de la canción
+                if (data && data.streamTitle) {
+                    songInfo.textContent = data.streamTitle;
+                } else {
+                    songInfo.textContent = "No se encontró información de la canción.";
+                }
+            } catch (e) {
+                console.error("Error al procesar el evento:", e);
+                songInfo.textContent = "Error al procesar la información de la canción.";
+            }
+        };
+
+        // Manejar errores en la conexión SSE
+        eventSource.onerror = function(event) {
+            console.error("Error en la conexión SSE:", event);
+            songInfo.textContent = "Error al conectar con el servidor.";
+        };
+</script>
+</body>
+</html>

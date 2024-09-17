@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: linear-gradient(rgba(51, 51, 51, 0.8), rgba(51, 51, 51, 0.8)), url('images/image.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#play-pause-btn {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Elimina el borde */
+    cursor: pointer;
+    outline: none;
+    padding: 0; /* Elimina el padding para un ajuste perfecto */
+}
+
+#play-pause-btn img {
+    width: 50px; /* Ajusta el tamaño según sea necesario */
+    height: 50px; /* Ajusta el tamaño según sea necesario */
+}
+
+#volume-slider {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#player {
+    background-color: #333; /* Color sólido */
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-image: url('images/default-background.jpg'); /* Imagen de fondo predeterminada */
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay; /* Mezcla la imagen con el color sólido */
+    background-color: rgba(51, 51, 51, 0.9); /* Ajusta la opacidad del color de fondo */
+}
+
+
+#audio-player {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#song-info {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif; /* Cambia la fuente según tus preferencias */
+}
+
+
+#volume-control {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#volume-slider {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+/* Estilo para el selector de idioma */
+#language-selector {
+    position: absolute; /* Permite que el selector se posicione correctamente dentro del header */
+    top: 20px; /* Ajusta según la necesidad */
+    right: 20px; /* Alinea a la derecha */
+}
+
+.lang-flag {
+    width: 30px; /* Ajusta el tamaño de las banderas */
+    height: auto;
+    cursor: pointer;
+    margin-left: 10px; /* Espacio entre banderas */
+}
+
+.lang-flag:hover {
+    opacity: 0.7; /* Efecto de opacidad al pasar el ratón sobre las banderas */
+}
+
+/* Estilo para la bandera activa */
+.lang-flag.active {
+    border-color: blue; /* O el color que prefieras para indicar el idioma activo */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+section {
+    padding: 20px;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
