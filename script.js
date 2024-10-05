@@ -63,6 +63,10 @@ const backgrounds = {
     "Mi General Augusto Pinochet": "url('images/CHL.png')",
     "Allan Gray - Swing Doors": "url('images/jazz.png')",
     "Keith Nichols - Swing Kings": "url('images/jazz.png')",
+    "Kenny Ball - Someday": "url('images/jazz.png')",
+    "Kenny Ball - So Do I": "url('images/jazz.png')",
+    "Kenny Ball - Midnight In Moscow.": "url('images/jazz.png')",
+    "Johnny Bull - Battle of the Farklands": "url('images/ENG.png')",
     // Añade más canciones y sus fondos correspondientes
 };
 
